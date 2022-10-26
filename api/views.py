@@ -8,7 +8,7 @@ from .models import NewsType, NewsItem
 from .serializers import NewsTypeSerializer, NewsItemSerializer
 
 
-class NewsTypesAPIView(ViewSet):
+class NewsTypesViewset(ViewSet):
     permission_classes = [permissions.AllowAny]
     
     def list(self, request):
@@ -38,7 +38,13 @@ class NewsTypesAPIView(ViewSet):
         news_type = get_object_or_404(NewsType, id=pk)
         news_type.delete()
         return Response({"status": "done"}, status=status.HTTP_204_NO_CONTENT)
-    
 
 
+class NewsItemsViewset(ViewSet):
+    permission_classes = [permissions.AllowAny]
+
+    def list(self, request):
+        news_types_qs = NewsItem.objects.all()
+        news_types_serializer = NewsItemSerializer(news_types_qs, many=True)
+        return Response(news_types_serializer.data, status=status.HTTP_200_OK)
 

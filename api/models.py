@@ -11,8 +11,8 @@ class NewsType(models.Model):
         ('BLACK', 'BLACK'),
     )
     
-    name = models.CharField(max_length=150)
-    color = models.CharField(max_length=200, choices=COLORS)
+    news_type_name = models.CharField(max_length=150)
+    news_type_color = models.CharField(max_length=200, choices=COLORS)
     
     class Meta:
         verbose_name_plural = "News Types"
@@ -24,7 +24,7 @@ class NewsItem(models.Model):
     title = models.CharField(max_length=100)
     about = models.CharField(max_length=250)
     description = models.TextField()
-    type_news = models.ForeignKey(NewsType, on_delete=models.CASCADE)
+    news_type = models.ForeignKey(NewsType, on_delete=models.CASCADE)
     
     class Meta:
         verbose_name_plural = "News Items"
