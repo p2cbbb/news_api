@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class TypeNews(models.Model):
+class NewsType(models.Model):
     COLORS = (
         ('RED', 'RED'),
         ('BLUE', 'BLUE'),
@@ -24,7 +24,7 @@ class NewsItem(models.Model):
     title = models.CharField(max_length=100)
     about = models.CharField(max_length=250)
     description = models.TextField()
-    type_news = models.ForeignKey(TypeNews, on_delete=models.CASCADE)
+    type_news = models.ForeignKey(NewsType, on_delete=models.CASCADE)
     
     class Meta:
         verbose_name_plural = "News Items"

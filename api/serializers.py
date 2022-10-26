@@ -1,12 +1,12 @@
 from rest_framework import serializers
 
-from api.models import TypeNews, NewsItem
+from api.models import NewsType, NewsItem
 
 
-class TypeNewsSerializer(serializers.ModelSerializer):
+class NewsTypeSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = TypeNews
+        model = NewsType
         fields = ('name', 'color')
 
 

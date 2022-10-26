@@ -1,11 +1,8 @@
-from django.urls import path
+from rest_framework import routers
+from .views import NewsTypesAPIView
 
-from .views import TypeNewsViewset
+app_name='news_curd'
 
-
-urlpatterns = [
-    path('news-types/', TypeNewsViewset.as_view({'get': 'list'}), name='news-types')
-]
-
-
-
+router = routers.SimpleRouter()
+router.register(r'news-types', NewsTypesAPIView, basename="news-types")
+urlpatterns = router.urls
