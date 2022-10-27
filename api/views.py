@@ -37,14 +37,37 @@ class NewsTypesViewset(ViewSet):
     def delete(self, request, pk=None):
         news_type = get_object_or_404(NewsType, id=pk)
         news_type.delete()
-        return Response({"status": "done"}, status=status.HTTP_204_NO_CONTENT)
+        return Response({"status": "news type has been deleted"}, status=status.HTTP_204_NO_CONTENT)
 
 
 class NewsItemsViewset(ViewSet):
     permission_classes = [permissions.AllowAny]
 
     def list(self, request):
-        news_types_qs = NewsItem.objects.all()
-        news_types_serializer = NewsItemSerializer(news_types_qs, many=True)
-        return Response(news_types_serializer.data, status=status.HTTP_200_OK)
+        news_items_qs = NewsItem.objects.all()
+        news_items_serializer = NewsItemSerializer(news_items_qs, many=True)
+        return Response(news_items_serializer.data, status=status.HTTP_200_OK)
+    
+    def retrieve(self, request, pk=None):
+        news_item = get_object_or_404(NewsItem, id=pk)
+        news_items_serializer = NewsItemSerializer(news_item)
+        return Response(news_items_serializer.data, status=status.HTTP_200_OK)
+    
+    def create(self, request):
+        news_item_serializer = NewsItemSerializer(data=request.data)
+        news_item_serializer.is_valid(raise_exception=True)
+        news_item_serializer.save()
+        return Response(news_item_serializer.data, status=status.HTTP_201_CREATED)
+    
+    def update(self, request, pk=None):
+        news_item = get_object_or_404(NewsItem, id=pk)
+        news_item_serializer = NewsItemSerializer(instance=news_item, data=request.data)
+        news_item_serializer.is_valid(raise_exception=True)
+        news_item_serializer.save()
+        return Response(news_item_serializer.data, status=status.HTTP_200_OK)
+    
+    def delete(self, request, pk=None):
+        news_item = get_object_or_404(NewsItem, id=pk)
+        news_item.delete()
+        return Response({"status": "news item has been deleted"}, status=status.HTTP_204_NO_CONTENT)
 

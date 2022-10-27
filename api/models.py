@@ -11,8 +11,8 @@ class NewsType(models.Model):
         ('BLACK', 'BLACK'),
     )
     
-    news_type_name = models.CharField(max_length=150)
-    news_type_color = models.CharField(max_length=200, choices=COLORS)
+    name = models.CharField(max_length=150)
+    color = models.CharField(max_length=200, choices=COLORS)
     
     class Meta:
         verbose_name_plural = "News Types"
