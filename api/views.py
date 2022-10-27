@@ -44,7 +44,11 @@ class NewsItemsViewset(ViewSet):
     permission_classes = [permissions.AllowAny]
 
     def list(self, request):
+        news_type_name = self.request.query_params.get('news_type')
         news_items_qs = NewsItem.objects.all()
+        if news_type_name:
+            news_type_obj = get_object_or_404(NewsType, name=news_type_name)
+            news_items_qs = news_items_qs.filter(news_type=news_type_obj)
         news_items_serializer = NewsItemSerializer(news_items_qs, many=True)
         return Response(news_items_serializer.data, status=status.HTTP_200_OK)
     
