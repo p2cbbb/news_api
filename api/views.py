@@ -25,7 +25,7 @@ class NewsTypesViewset(ViewSet):
         news_type_serializer = NewsTypeSerializer(data=request.data)
         news_type_serializer.is_valid(raise_exception=True)
         news_type_serializer.save()
-        return Response(news_type_serializer.data, status=status.HTTP_201_OK)
+        return Response({"status": "news type has been created"}, status=status.HTTP_201_CREATED)
     
     def update(self, request, pk=None):
         news_type = get_object_or_404(NewsType, id=pk)
@@ -61,7 +61,7 @@ class NewsItemsViewset(ViewSet):
         news_item_serializer = NewsItemSerializer(data=request.data)
         news_item_serializer.is_valid(raise_exception=True)
         news_item_serializer.save()
-        return Response(news_item_serializer.data, status=status.HTTP_201_CREATED)
+        return Response({"status": f"news item has been created"}, status=status.HTTP_201_CREATED)
     
     def update(self, request, pk=None):
         news_item = get_object_or_404(NewsItem, id=pk)

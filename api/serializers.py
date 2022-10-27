@@ -7,7 +7,7 @@ class NewsTypeSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = NewsType
-        fields = '__all__'
+        fields = ('name', 'color')
 
 
 class NewsItemSerializer(serializers.ModelSerializer):

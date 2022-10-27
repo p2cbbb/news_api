@@ -43,3 +43,70 @@ python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
 ```
+
+### Эндпоинты
+#### Новости
+- `GET /api/news-items/` - получить список всех новостей. Чтобы добавить фильтрацию по определенному типу новостей добавить `?news_type=<news_type>`
+- `GET /api/news-items/<id>/` - получить статью с указанным id
+- `POST /api/news-items/` - создать новую статью
+- `PUT /api/news-items/<id>/` - изменяет статью с указанным id
+- `DELETE /api/news-items/<id>/` - удаляет статью с указанным id
+
+##### Получение и отправка данных произодится в формате JSON:
+```json
+[
+    {
+        "title": "Название статьи",
+        "about": "Краткое описание статьи",
+        "description": "Полное описание статьи",
+        "news_type_name": "Тип статьи",
+        "news_type_color": "Цвет типа"
+    },
+]
+```
+##### Ответ при создании новой статьи:
+```json
+{
+    "status": "news item has been created"
+}
+```
+##### Ответ при удалении статьи:
+```json
+{
+    "status": "news item has been deleted"
+}
+```
+
+#### Тип новостей
+- `GET /api/news-types/` - получить список всех типов новостей
+- `GET /api/news-types/<id>/` - получить тип новости с указанным id
+- `POST /api/news-types/` - создать новый тип новости
+- `PUT /api/news-types/<id>/` - изменить тип новости с указанным id
+- `DELETE /api/news-types/<id>/` - удалить тип новости с указанным id
+
+##### Получение и отправка данных произодится в формате JSON:
+```json
+[
+    {
+        "name": "Спорт",
+        "color": "RED"
+    },
+    {
+        "name": "Политика",
+        "color": "BLUE"
+    },
+]
+```
+
+##### Ответ при создании нового типа новости:
+```json
+{
+    "status": "news type has been created"
+}
+```
+##### Ответ при удалении типа новости:
+```json
+{
+    "status": "news type has been deleted"
+}
+```
