@@ -44,6 +44,11 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+### Команда для запуска проекта через docker
+```bash
+docker-compose up --build
+```
+
 ### Эндпоинты
 #### Новости
 - `GET /api/news-items/` - получить список всех новостей. Чтобы добавить фильтрацию по определенному типу новостей добавить `?news_type=<news_type>`
