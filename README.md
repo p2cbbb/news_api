@@ -44,6 +44,12 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+### Запуск тестов
+ 
+```bash
+python -m pytest api/tests.py
+```
+
 ### Команда для запуска проекта через docker
 ```bash
 docker-compose up --build

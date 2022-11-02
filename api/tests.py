@@ -30,41 +30,80 @@ class APITestClass(BaseTest):
         self.assertIsNotNone(first_news_item)
         self.assertEqual(len(news_items), 3)
     
+    
+    def test_get_news_items_sport_types(self):
+        url = "http://127.0.0.1:8000/api/news-items/?news_type=Спорт"
+        response = self.client.get(url)
+        first_news_item = response.json()[0]
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(first_news_item["news_type_name"], "Спорт")
+        
 
     def test_get_new_item_by_id(self):
-        pass
+        url = "http://127.0.0.1:8000/api/news-items/1/"
+        response = self.client.get(url)
+        news_items = response.json()
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNotNone(news_items)
 
 
-    def test_post_new_item(self):
-        pass
+    def test_post_news_item(self):
+        post_json = {
+            "title": "Название спортивной статьи",
+            "about": "Краткое описание спортивной статьи",
+            "description": "Полное описание спортивной статьи",
+            "news_type_name": "Спорт",
+            "news_type_color": "RED"
+        }
+        url = "http://127.0.0.1:8000/api/news-items/"
+        response = self.client.post(url, post_json, format='json')
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.json()["status"], "news item has been created")
 
 
-    def test_put_new_item(self):
-        pass
-
-
-    def test_delete_new_item(self):
-        pass
+    def test_delete_news_item(self):
+        news_item = NewsItem.objects.get(title="Test videogames title")
+        news_item_id = news_item.id
+        news_item.delete()
+        url = f"http://127.0.0.1:8000/api/news-items/{news_item_id}/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+        
     
-
     def test_get_news_types(self):
-        pass
+        url = "http://127.0.0.1:8000/api/news-types/"
+        response = self.client.get(url)
+        news_items = response.json()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(news_items), 3)
     
 
     def test_get_news_type_by_id(self):
-        pass
+        url = "http://127.0.0.1:8000/api/news-types/1/"
+        response = self.client.get(url)
+        news_items = response.json()
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNotNone(news_items)
 
 
     def test_post_news_type(self):
-        pass
-
-
-    def test_put_news_type(self):
-        pass
+        post_json = {
+            "name": "ИТ",
+            "color": "GREEN"
+        }
+        url = "http://127.0.0.1:8000/api/news-types/"
+        response = self.client.post(url, post_json, format='json')
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.json()["status"], "news type has been created")
 
 
     def test_delete_news_type(self):
-        pass
+        news_type = NewsType.objects.get(name="Видеоигры")
+        news_type_id = news_type.id
+        news_type.delete()
+        url = f"http://127.0.0.1:8000/api/news-types/{news_type_id}/"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
 
 
 
